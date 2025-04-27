@@ -1,16 +1,20 @@
 # Use the official PHP image with Apache
 FROM php:8.2-apache
 
-# Enable Apache mod_rewrite (if you need it later for URL rewriting)
+# Enable apache rewrite module
 RUN a2enmod rewrite
 
-# Install common PHP extensions if needed (like curl, mysqli, etc.)
-RUN docker-php-ext-install curl
+# Install system dependencies required for building PHP extensions
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    pkg-config \
+    libssl-dev \
+    && docker-php-ext-install curl
 
-# Copy your application (your index.php and others) into the Apache root
+# Copy application source code into Apache server root
 COPY . /var/www/html/
 
-# Set correct permissions (optional, but good practice)
+# Set proper permissions (optional but recommended)
 RUN chown -R www-data:www-data /var/www/html
 
 # Expose port 80
