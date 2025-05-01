@@ -121,22 +121,22 @@ if ($data && isset($data['code']) && $data['code'] === "200" && !empty($hallAvai
         $_SESSION['availabilityId'] = $hallDetails['id'];   
 
         foreach ($hallDetails['timeSlots'] as $slot) {
-            $slotStatusClass = strtolower($slot['status']) === 'available' ? 'bg-success' : 'bg-danger';
-            $slotStatusText = strtolower($slot['status']) === 'available' ? 'Available' : 'Unavailable';
-            echo "<div class='col-md-4 mb-3'>"; // Use columns for layout
-            echo "<div class='card $slotStatusClass text-white'>"; // Card for each slot
+            $status = strtolower($slot['status']);
+            $slotStatusClass = in_array($status, ['available', 'pending']) ? 'bg-success' : 'bg-danger';
+        
+            echo "<div class='col-md-4 mb-3'>";
+            echo "<div class='card $slotStatusClass text-white'>";
             echo "<div class='card-body'>";
-            //echo "<h6 class='card-title'><strong>Slot ID:</strong> " . htmlspecialchars($slot['id']) . "</h6>";
             echo "<p class='card-text'><strong>Date:</strong> " . htmlspecialchars($slot['date']) . "</p>";
             echo "<p class='card-text'><strong>Time:</strong> " . htmlspecialchars($slot['startTime']) . " - " . htmlspecialchars($slot['endTime']) . "</p>";
-            
+        
             // Centering the radio button
-            echo "<div class='text-center'>"; // Centering div
-            echo "<input type='radio' name='selectedSlot' value='{$hallId}_{$slot['id']}' required class='form-check-input' style='transform: scale(1.5);'> ";
-            echo "<label class='form-check-label' style='font-weight: bold;'> Select 
-            this Time Slot</label>"; // Label for the radio button
-            echo "</div>"; // Close centering div
-            echo "</div></div></div>"; // Close slot card
+            echo "<div class='text-center'>";
+            echo "<input type='radio' name='selectedSlot' value='{$hallId}_{$slot['id']}' required class='form-check-input' style='transform: scale(1.5);'>";
+            echo "<label class='form-check-label' style='font-weight: bold;'> Select this Time Slot</label>";
+            echo "</div>";
+        
+            echo "</div></div></div>";
         }
     
         echo "</div></div></div>"; // Close row and hall card
