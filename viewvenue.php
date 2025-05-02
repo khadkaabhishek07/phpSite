@@ -639,11 +639,11 @@ if (isset($responseData2['data']['hallDetails'])) {
     <a href="#" class="text-danger text-center" style="text-decoration: none;">
         <i class="bi bi-heart-fill" style="font-size: 1.5rem;"></i>
         <p class="mb-0" style="font-size: 0.75rem;">Favorites</p>
-    </a>
-    <a href="history.php?token=<?php echo htmlspecialchars($userToken); ?>" class="text-danger text-center" style="text-decoration: none;">
+<a href="history.php" class="text-danger text-center" style="text-decoration: none;">
     <i class="bi bi-clock-history" style="font-size: 1.5rem;"></i>
     <p class="mb-0" style="font-size: 0.75rem;">History</p>
 </a>
+
 
 
     <?php if ($is_logged_in): ?>
