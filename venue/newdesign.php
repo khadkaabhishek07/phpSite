@@ -1,12 +1,21 @@
+<?php
+session_start(); // Start the session to check login status
+
+// Assume 'user_logged_in' is a session variable that holds the login status
+$is_logged_in = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>NepaliVow</title>
+  <title>Bandobasta</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -29,7 +38,7 @@
     <div class="relative z-10 container mx-auto px-4 py-6">
       <div class="flex justify-between items-center">
         <div class="text-white text-2xl font-bold">
-          NepaliVow
+          Bandobasta
         </div>
         
         <!-- Desktop Navigation -->
@@ -45,9 +54,9 @@
         <div class="hidden md:flex items-center space-x-4">
           <div class="text-white">
             <i class="fas fa-phone-alt"></i>
-            +977 98-1234567
+            +977 9818084243
           </div>
-          <button class="bg-yellow-500 text-white px-4 py-2 rounded">
+          <button class="bg-red-500 text-white px-4 py-2 rounded">
             Book Now
           </button>
         </div>
@@ -71,7 +80,7 @@
               <i class="fas fa-phone-alt"></i>
               +977 98-1234567
             </div>
-            <button class="bg-yellow-500 text-white px-4 py-2 rounded w-full">
+            <button class="bg-red-500 text-white px-4 py-2 rounded w-full">
               Book Now
             </button>
           </div>
@@ -80,13 +89,15 @@
     </div>
     
     <!-- Hero Content -->
-    <div class="relative z-10 text-center text-white px-4 mt-16 md:mt-32">
+    <div class="relative bg-cover bg-center min-h-[500px] flex items-center justify-center">
+  <!-- Your hero content here -->
+  <div class="relative z-10 text-center text-white px-4 mt-16 md:mt-32">
       <h2 class="text-lg uppercase">
         Exceptional Wedding Venues in Nepal
       </h2>
       <h1 class="text-3xl md:text-5xl font-bold mt-2">
         Create Your Perfect
-        <span class="text-yellow-500">
+        <span class="text-red-800">
           Wedding Day
         </span>
       </h1>
@@ -94,7 +105,7 @@
         Discover and book the most stunning wedding venues across Nepal, with morning and evening availability.
       </p>
       <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-        <button class="bg-yellow-500 text-white px-6 py-3 rounded">
+        <button class="bg-red-500 text-white px-6 py-3 rounded">
           Explore Venues
         </button>
         <button class="bg-white text-gray-800 px-6 py-3 rounded">
@@ -102,6 +113,7 @@
         </button>
       </div>
     </div>
+</div>
   </header>
   
   <!-- Search Bar -->
@@ -110,12 +122,9 @@
       <div class="flex flex-col md:flex-row items-center gap-2">
         <input class="w-full p-2 border border-gray-300 rounded-lg md:rounded-l-lg" placeholder="Search venues by name or location..." type="text"/>
         <div class="flex w-full md:w-auto gap-2 mt-2 md:mt-0">
-          <button class="flex-1 md:flex-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-lg md:rounded-none md:rounded-r-lg">
-            Morning
-          </button>
-          <button class="flex-1 md:flex-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
-            Evening
-          </button>
+        <button class="flex-1 md:flex-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-lg mb-2 hover:bg-gray-300 transition-colors duration-200">
+          Search
+        </button>
         </div>
       </div>
     </div>
@@ -128,123 +137,94 @@
     </h2>
     <p class="text-gray-600">
       Discover Nepal's most beautiful venues for your special day
-    </p>
-    <div class="mt-4 text-center">
-      <div id="featured-venues" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="container my-5">
+  <div class="row">
+    <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1/venue/findAll?size=100',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+
+if ($response === false) {
+    echo '<p class="text-center text-muted">Unable to fetch venue data. Please try again later.</p>';
+    curl_close($curl);
+    return;
+}
+
+curl_close($curl);
+$data = json_decode($response, true);
+
+if ($data && isset($data['data']['venues'])) {
+    foreach ($data['data']['venues'] as $venue) {
+      echo '<div class="col-12 col-sm-6 col-lg-3 mb-4">';        
+      echo '<div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 h-100 d-flex flex-column">';
         
-        <!-- Sample Venue Card 1 -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="/api/placeholder/400/300" class="w-full h-48 object-cover" alt="Hyatt Regency Kathmandu">
-          </div>
-          <div class="p-4 flex flex-col h-full">
-            <h5 class="text-xl font-bold mb-2">Hyatt Regency Kathmandu</h5>
-            <p class="text-gray-600 text-sm flex items-center mb-2">
-              <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
-              Boudha, Kathmandu
-            </p>
-            <p class="text-gray-700 text-sm flex items-center mb-3">
-              <strong class="mr-2">Starting Price:</strong>
-              <span class="text-red-500 font-bold">Rs. 250000 ONWARDS</span>
-            </p>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-wifi mr-1"></i> Free WiFi</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-utensils mr-1"></i> Catering</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-tv mr-1"></i> AV Equipment</span>
-            </div>
-            <a href="#" class="mt-auto text-center w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition">
-              View More
-            </a>
-          </div>
-        </div>
+        // Image
+        echo '<div class="position-relative">';
+        $imagePath = !empty($venue['venueImagePaths'][0]) ? $venue['venueImagePaths'][0] : '/api/placeholder/400/300';
+        echo '<img src="' . htmlspecialchars($imagePath) . '" class="w-100" style="height: 200px; object-fit: cover;" alt="' . htmlspecialchars($venue['name']) . '">';
+        echo '</div>';
         
-        <!-- Sample Venue Card 2 -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="/api/placeholder/400/300" class="w-full h-48 object-cover" alt="Hotel Yak & Yeti">
-          </div>
-          <div class="p-4 flex flex-col h-full">
-            <h5 class="text-xl font-bold mb-2">Hotel Yak & Yeti</h5>
-            <p class="text-gray-600 text-sm flex items-center mb-2">
-              <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
-              Durbar Marg, Kathmandu
-            </p>
-            <p class="text-gray-700 text-sm flex items-center mb-3">
-              <strong class="mr-2">Starting Price:</strong>
-              <span class="text-red-500 font-bold">Rs. 200000 ONWARDS</span>
-            </p>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-wifi mr-1"></i> Free WiFi</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-utensils mr-1"></i> Catering</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-tv mr-1"></i> AV Equipment</span>
-            </div>
-            <a href="#" class="mt-auto text-center w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition">
-              View More
-            </a>
-          </div>
-        </div>
+        // Card Body
+        echo '<div class="p-3 d-flex flex-column flex-grow-1">';
+        echo '<h5 class="fw-bold mb-2">' . htmlspecialchars($venue['name']) . '</h5>';
         
-        <!-- Sample Venue Card 3 -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="/api/placeholder/400/300" class="w-full h-48 object-cover" alt="Soaltee Crowne Plaza">
-          </div>
-          <div class="p-4 flex flex-col h-full">
-            <h5 class="text-xl font-bold mb-2">Soaltee Crowne Plaza</h5>
-            <p class="text-gray-600 text-sm flex items-center mb-2">
-              <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
-              Tahachal, Kathmandu
-            </p>
-            <p class="text-gray-700 text-sm flex items-center mb-3">
-              <strong class="mr-2">Starting Price:</strong>
-              <span class="text-red-500 font-bold">Rs. 180000 ONWARDS</span>
-            </p>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-wifi mr-1"></i> Free WiFi</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-utensils mr-1"></i> Catering</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-tv mr-1"></i> AV Equipment</span>
-            </div>
-            <a href="#" class="mt-auto text-center w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition">
-              View More
-            </a>
-          </div>
-        </div>
-        
-        <!-- Sample Venue Card 4 -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="/api/placeholder/400/300" class="w-full h-48 object-cover" alt="Hotel Annapurna">
-          </div>
-          <div class="p-4 flex flex-col h-full">
-            <h5 class="text-xl font-bold mb-2">Hotel Annapurna</h5>
-            <p class="text-gray-600 text-sm flex items-center mb-2">
-              <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
-              Durbar Marg, Kathmandu
-            </p>
-            <p class="text-gray-700 text-sm flex items-center mb-3">
-              <strong class="mr-2">Starting Price:</strong>
-              <span class="text-red-500 font-bold">Rs. 150000 ONWARDS</span>
-            </p>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-wifi mr-1"></i> Free WiFi</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-utensils mr-1"></i> Catering</span>
-              <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-lg flex items-center"><i class="fas fa-tv mr-1"></i> AV Equipment</span>
-            </div>
-            <a href="#" class="mt-auto text-center w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition">
-              View More
-            </a>
-          </div>
-        </div>
-        
-      </div>
-    </div>
+        // Address parsing
+        $clean_address = preg_replace('/^\d+-/', '', $venue['address']);
+        $address_parts = explode(',', $clean_address);
+        $short_address = trim($address_parts[0]) . ', ' . trim($address_parts[1]);
+
+        echo '<p class="text-secondary small d-flex align-items-center mb-2">';
+        echo '<i class="bi bi-geo-alt-fill text-danger me-2"></i>' . htmlspecialchars($short_address);
+        echo '</p>';
+
+        // Starting Price
+        $price = intval($venue['menuPrice']);
+        echo '<p class="text-muted small mb-3"><strong class="me-1">Starting Price:</strong><span class="text-danger fw-bold">Rs. ' . $price . ' ONWARDS</span></p>';
+
+        // Amenities
+        echo '<div class="d-flex flex-wrap gap-2 mb-3">';
+        echo '<span class="badge bg-light text-dark"><i class="bi bi-wifi me-1"></i> Free WiFi</span>';
+        echo '<span class="badge bg-light text-dark"><i class="bi bi-cup-straw me-1"></i> Catering</span>';
+        echo '<span class="badge bg-light text-dark"><i class="bi bi-tv me-1"></i> AV Equipment</span>';
+        echo '</div>';
+
+        // View More button
+        echo '<a href="viewvenue.php?venueId=' . htmlspecialchars($venue['id']) . '" class="btn btn-danger mt-auto w-100">View More</a>';
+
+        echo '</div>'; // card-body
+        echo '</div>'; // card
+        echo '</div>'; // col
+    }
+} else {
+    echo '<p class="text-center text-muted">No venues available at the moment.</p>';
+}
+?>
+  </div>
+</div>
+
   </section>
+
   
   <!-- How NepaliVow Works -->
   <section class="bg-gray-100 py-12">
     <div class="container mx-auto px-4">
       <h2 class="text-2xl font-bold text-center">
-        How NepaliVow Works
+        How Bandobasta Works
       </h2>
       <p class="text-gray-600 text-center mb-8">
         Find and book your perfect wedding venue in Nepal with our simple three-step process
@@ -342,7 +322,7 @@
                 </div>
               </div>
               <p class="text-gray-600">
-                Having our wedding during the evening with NepaliVow made the booking process so easy and stress-free.
+                Having our wedding during the evening with bandobasta made the booking process so easy and stress-free.
               </p>
               <div class="mt-4 text-yellow-500">
                 <i class="fas fa-star"></i>
@@ -364,12 +344,12 @@
                     Ramesh & Sita
                   </h3>
                   <p class="text-gray-600">
-                    Hotel Annapurna
+                   Quick 20 Venue
                   </p>
                 </div>
               </div>
               <p class="text-gray-600">
-                NepaliVow made our wedding day perfect with their excellent service and beautiful venues.
+               Bandobasta made our wedding day perfect with their excellent service and beautiful venues.
               </p>
               <div class="mt-4 text-yellow-500">
                 <i class="fas fa-star"></i>
@@ -402,32 +382,13 @@
       </div>
     </div>
   </section>
-  
-  <!-- Stay Updated -->
-  <section class="bg-yellow-500 py-12">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-2xl font-bold text-white">
-        Stay Updated
-      </h2>
-      <p class="text-white mb-4">
-        Subscribe to our newsletter for exclusive venue updates and special offers
-      </p>
-      <div class="flex flex-col sm:flex-row justify-center max-w-md mx-auto">
-        <input class="p-2 rounded-lg sm:rounded-r-none w-full mb-2 sm:mb-0" placeholder="Your email address" type="email"/>
-        <button class="bg-white text-yellow-500 px-4 py-2 rounded-lg sm:rounded-l-none">
-          Subscribe
-        </button>
-      </div>
-    </div>
-  </section>
-  
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <h3 class="text-lg font-bold">
-            NepaliVow
+            Bandobasta
           </h3>
           <p class="text-gray-400 mt-2">
             Making wedding venue booking in Nepal simple, transparent, and stress-free.
@@ -514,17 +475,17 @@
             </li>
             <li class="text-gray-400">
               <i class="fas fa-envelope mr-2"></i>
-              info@nepalivow.com
+              admin@bandobasta.com
             </li>
             <li class="text-gray-400">
               <i class="fas fa-phone-alt mr-2"></i>
-              +977 1-1234567
+              +977 9818084243
             </li>
           </ul>
         </div>
       </div>
       <div class="mt-8 text-center text-gray-400">
-        © 2025 NepaliVow. All rights reserved.
+        © 2025 Bandobasta. All rights reserved.
       </div>
     </div>
   </footer>
