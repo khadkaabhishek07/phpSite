@@ -104,7 +104,7 @@ if (!empty($location)) {
 $curl = curl_init();
 
 // API endpoint with dynamic location
-$apiUrl = 'https://bandobasta.onrender.com/bandobasta/api/v1/venue/findAll?location=' . urlencode($location);
+$apiUrl = 'https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1/venue/findAll?location=' . urlencode($location);
 
 curl_setopt_array($curl, array(
     CURLOPT_URL => $apiUrl,
@@ -148,10 +148,12 @@ if ($data && isset($data['data']['venues'])) {
         echo '<span class="small">' . htmlspecialchars($venue['address']) . '</span>';
         echo '</p>';
     
+        // Remove the decimal part
+        $price = intval($venue['menuPrice']); // This will remove the decimal part
         // Starting Price
         echo '<p class="card-text text-muted d-flex align-items-center mb-3">';
         echo '<strong class="me-2">Starting Price:</strong>';
-        echo '<span class="text-primary fw-bold small">' . htmlspecialchars($venue['startingPrice']) . '</span>';
+        echo '<span class="text-primary fw-bold small"> Rs ' . htmlspecialchars($price) . ' ONWARDS </span>';
         echo '</p>';
     
         // Facilities (icons or text)
