@@ -637,7 +637,7 @@ if (isset($responseData2['data']['hallDetails'])) {
         <p class="mb-0" style="font-size: 0.75rem;">Home</p>
     </a>
     <a href="#" class="text-danger text-center" style="text-decoration: none;">
-        <i class="bi bi-heart-fill" style="font-size: 1.5rem;"></i>
+        <i class="bi bi-heart" style="font-size: 1.5rem;"></i>
         <p class="mb-0" style="font-size: 0.75rem;">Favorites</p>
 <a href="history.php" class="text-danger text-center" style="text-decoration: none;">
     <i class="bi bi-clock-history" style="font-size: 1.5rem;"></i>
