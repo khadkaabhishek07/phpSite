@@ -30,105 +30,87 @@ $is_logged_in = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'
   </style>
 </head>
 <body class="bg-white text-gray-800">
-  <!-- Header -->
-  <header class="relative bg-cover bg-center h-screen" style="background-image: url('/api/placeholder/1920/1080');">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    
-    <!-- Navigation - Desktop & Mobile -->
-    <div class="relative z-10 container mx-auto px-4 py-6">
-      <div class="flex justify-between items-center">
-        <div class="text-white text-2xl font-bold">
-          Bandobasta
-        </div>
-        
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex space-x-4 text-white">
-          <a class="hover:underline" href="#">Home</a>
-          <a class="hover:underline" href="#">Venues</a>
-          <a class="hover:underline" href="#">Services</a>
-          <a class="hover:underline" href="#">About</a>
-          <a class="hover:underline" href="#">Contact</a>
-        </nav>
-        
-        <!-- Desktop Contact & Button -->
-        <div class="hidden md:flex items-center space-x-4">
-          <div class="text-white">
-            <i class="fas fa-phone-alt"></i>
-            +977 9818084243
-          </div>
-          <button class="bg-red-500 text-white px-4 py-2 rounded">
-            Book Now
-          </button>
-        </div>
-        
-        <!-- Mobile menu button -->
-        <button id="menu-toggle" class="md:hidden text-white text-xl">
-          <i class="fas fa-bars"></i>
-        </button>
+<!-- Header -->
+<header class="relative bg-cover bg-center h-[550px]" style="background-image: url('cover.jpg');">
+  <div class="absolute inset-0 backdrop-blur-sm bg-black/80"></div>
+
+  <!-- Navigation -->
+  <div class="relative z-10 container mx-auto px-4 py-6">
+    <div class="flex justify-between items-center">
+      <div class="text-white text-2xl font-bold">Bandobasta</div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-4 text-white">
+        <a class="hover:underline" href="#">Home</a>
+        <a class="hover:underline" href="#">Venues</a>
+        <a class="hover:underline" href="#">Services</a>
+        <a class="hover:underline" href="#">About</a>
+        <a class="hover:underline" href="#">Contact</a>
+      </nav>
+
+      <!-- Contact & CTA -->
+      <div class="hidden md:flex items-center space-x-4">
+        <div class="text-white"><i class="fas fa-phone-alt"></i> +977 9818084243</div>
+        <button class="bg-red-500 text-white px-4 py-2 rounded">Book Now</button>
       </div>
-      
-      <!-- Mobile menu -->
-      <div id="mobile-menu" class="mobile-menu mt-4 md:hidden">
-        <nav class="flex flex-col bg-black bg-opacity-80 p-4 rounded text-white space-y-2">
-          <a class="hover:underline" href="#">Home</a>
-          <a class="hover:underline" href="#">Venues</a>
-          <a class="hover:underline" href="#">Services</a>
-          <a class="hover:underline" href="#">About</a>
-          <a class="hover:underline" href="#">Contact</a>
-          <div class="py-2 border-t border-gray-700 mt-2">
-            <div class="text-white mb-2">
-              <i class="fas fa-phone-alt"></i>
-              +977 98-1234567
-            </div>
-            <button class="bg-red-500 text-white px-4 py-2 rounded w-full">
-              Book Now
-            </button>
-          </div>
-        </nav>
-      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="menu-toggle" class="md:hidden text-white text-xl">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    
-    <!-- Hero Content -->
-    <div class="relative bg-cover bg-center min-h-[500px] flex items-center justify-center">
-  <!-- Your hero content here -->
-  <div class="relative z-10 text-center text-white px-4 mt-16 md:mt-32">
-      <h2 class="text-lg uppercase">
-        Exceptional Wedding Venues in Nepal
-      </h2>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu mt-4 md:hidden">
+      <nav class="flex flex-col bg-black bg-opacity-80 p-4 rounded text-white space-y-2">
+        <a class="hover:underline" href="#">Home</a>
+        <a class="hover:underline" href="#">Venues</a>
+        <a class="hover:underline" href="#">Services</a>
+        <a class="hover:underline" href="#">About</a>
+        <a class="hover:underline" href="#">Contact</a>
+        <div class="py-2 border-t border-gray-700 mt-2">
+          <div class="text-white mb-2">
+            <i class="fas fa-phone-alt"></i> +977 98-1234567
+          </div>
+          <button class="bg-red-500 text-white px-4 py-2 rounded w-full">Book Now</button>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative bg-cover bg-center h-full flex items-center justify-center">
+  <div class="relative z-10 text-center text-white px-4 py-2 md:py-10">
+      <h2 class="text-lg uppercase">Exceptional Wedding Venues in Nepal</h2>
       <h1 class="text-3xl md:text-5xl font-bold mt-2">
-        Create Your Perfect
-        <span class="text-red-800">
-          Wedding Day
-        </span>
+        Create Your Perfect <span class="text-red-800">Wedding Day</span>
       </h1>
       <p class="mt-4 mx-auto max-w-2xl">
         Discover and book the most stunning wedding venues across Nepal, with morning and evening availability.
       </p>
       <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-        <button class="bg-red-500 text-white px-6 py-3 rounded">
-          Explore Venues
-        </button>
-        <button class="bg-white text-gray-800 px-6 py-3 rounded">
-          Contact Us
-        </button>
-      </div>
-    </div>
-</div>
-  </header>
-  
-  <!-- Search Bar -->
-  <div class="container mx-auto px-4 py-6">
-    <div class="bg-white shadow-md rounded-lg p-4">
-      <div class="flex flex-col md:flex-row items-center gap-2">
-        <input class="w-full p-2 border border-gray-300 rounded-lg md:rounded-l-lg" placeholder="Search venues by name or location..." type="text"/>
-        <div class="flex w-full md:w-auto gap-2 mt-2 md:mt-0">
-        <button class="flex-1 md:flex-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-lg mb-2 hover:bg-gray-300 transition-colors duration-200">
-          Search
-        </button>
-        </div>
+        <button class="bg-red-500 text-white px-6 py-3 rounded">Explore Venues</button>
+        <button class="bg-white text-gray-800 px-6 py-3 rounded">Contact Us</button>
       </div>
     </div>
   </div>
+</header>
+
+<!-- ✅ Search Bar placed AFTER hero content -->
+<div class="container mx-auto px-4 -mt-10 relative z-20">
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <div class="flex flex-col md:flex-row items-center gap-2">
+      <input class="w-full p-2 border border-gray-300 rounded-lg md:rounded-l-lg"
+             placeholder="Search venues by name or location..." type="text" />
+      <div class="flex w-full md:w-auto gap-2 mt-2 md:mt-0">
+        <button
+          class="flex-1 md:flex-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors duration-200">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
   
   <!-- Featured Wedding Venues -->
   <section class="container mx-auto px-4 py-6">
