@@ -236,6 +236,7 @@ if ($data && isset($data['data']['venues'])) {
                     </div>
                 <?php endif; ?>
                 <form action="login.php" method="POST">
+                <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" id="username" name="username" class="form-control" required>
