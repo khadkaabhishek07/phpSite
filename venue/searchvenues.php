@@ -248,60 +248,6 @@ if ($data && isset($data['data']['venues'])) {
         </div>
     </div>
 </div>
-<!-- Test Site Modal -->
-<div class="modal fade" id="testSiteModal" tabindex="-1" aria-labelledby="testSiteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="testSiteModalLabel">Test Site Notice</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>This is a test site. Any booking made on this page is for testing purposes only. No actual booking is made.</p>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="termsCheck">
-                    <label class="form-check-label" for="termsCheck">I agree to accept the terms and conditions.</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="acceptTermsBtn" disabled>Accept</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Function to check if the user has already accepted the terms
-    function hasAcceptedTerms() {
-        return localStorage.getItem('testSiteAccepted') === 'true';
-    }
-
-    // Automatically show the modal only if the user hasn't accepted the terms
-    document.addEventListener('DOMContentLoaded', function () {
-        // Check if the user has already accepted the terms
-        if (hasAcceptedTerms()) {
-            return; // Exit if the user has already accepted
-        }
-
-        var testSiteModal = new bootstrap.Modal(document.getElementById('testSiteModal'), {});
-        testSiteModal.show();
-
-        // Enable/Disable the "Accept" button based on checkbox state
-        var termsCheck = document.getElementById('termsCheck');
-        var acceptTermsBtn = document.getElementById('acceptTermsBtn');
-
-        termsCheck.addEventListener('change', function () {
-            acceptTermsBtn.disabled = !termsCheck.checked;
-        });
-
-        // Handle the "Accept" button click
-        acceptTermsBtn.addEventListener('click', function () {
-            // Store the acceptance in localStorage to prevent showing the modal again
-            localStorage.setItem('testSiteAccepted', 'true');
-            testSiteModal.hide(); // Close the modal when accepted
-        });
-    });
-</script>
 
 
 <script>
