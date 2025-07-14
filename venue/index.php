@@ -276,7 +276,7 @@ $is_logged_in = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'
                     <a class="nav-link active" href="index.php">Venues</a> <!-- Active link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://events.bandobasta.com" target="_blank">Events</a> <!-- Link to Events -->
+                    <a class="nav-link" href="#" target="_blank">Events</a> <!-- Link to Events -->
                 </li>
             </ul>
         </div>
