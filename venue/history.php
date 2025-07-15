@@ -131,7 +131,6 @@ $id = htmlspecialchars($booking['id']??'N/A');
 <p class="card-text"><strong>Booked For Date:</strong> <?php echo $bookedForDate; ?></p>
 <p class="card-text"><strong>Status:</strong> <span class="badge <?php echo getStatusClass($status); ?>"><?php echo $status; ?></span></p>
 <p class="card-text"><strong>Booking Id:</strong><?php echo $id ?></p>
-<p class="card-text"><strong>User Id:</strong><?php echo $userId ?></p>
 </div>
 </div>
 <?php endforeach; ?>

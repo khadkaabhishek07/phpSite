@@ -95,8 +95,6 @@ $is_logged_in = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'
     </div>
   </div>
 </header>
-
-<!-- ✅ Search Bar placed AFTER hero content -->
 <div class="container mx-auto px-4 -mt-10 relative z-20">
   <div class="bg-white shadow-md rounded-lg p-4">
     <div class="flex flex-col md:flex-row items-center gap-2">

@@ -632,20 +632,35 @@ if (isset($responseData2['data']['hallDetails'])) {
 
 <!-- Footer Navigation -->
 <footer class="fixed-bottom bg-light d-flex justify-content-around py-2">
-    <a href="#" class="text-danger text-center" style="text-decoration: none;">
+    <a href="../venue/" class="text-danger text-center" style="text-decoration: none;">
         <i class="bi bi-house-door-fill" style="font-size: 1.5rem;"></i>
         <p class="mb-0" style="font-size: 0.75rem;">Home</p>
     </a>
+    <?php if ($is_logged_in): ?>
     <a href="#" class="text-danger text-center" style="text-decoration: none;">
+        <i class="bi bi-heart-fill" style="font-size: 1.5rem;"></i>
+        <p class="mb-0" style="font-size: 0.75rem;">Favorites</p>
+    </a>
+    <?php else: ?>
+        <a href="#" class="text-danger text-center" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#loginModal">
         <i class="bi bi-heart" style="font-size: 1.5rem;"></i>
         <p class="mb-0" style="font-size: 0.75rem;">Favorites</p>
-<a href="history.php" class="text-danger text-center" style="text-decoration: none;">
-    <i class="bi bi-clock-history" style="font-size: 1.5rem;"></i>
-    <p class="mb-0" style="font-size: 0.75rem;">History</p>
-</a>
+    </a>
+    <?php endif; ?>
 
+    <?php if ($is_logged_in): ?>
+    <a href="history.php?token=<?php echo htmlspecialchars($userToken); ?>" class="text-danger text-center" style="text-decoration: none;">
+        <i class="bi bi-clock-history" style="font-size: 1.5rem;"></i>
+        <p class="mb-0" style="font-size: 0.75rem;">History</p>
+    </a>
+    <?php else: ?>
+                <a href="#" class="text-danger text-center" style="text-decoration: none;"  data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="bi bi-clock-history" style="font-size: 1.5rem;"></i>
+                    <p class="mb-0" style="font-size: 0.75rem;">History</p>
+                </a>
+    <?php endif; ?>
 
-
+    
     <?php if ($is_logged_in): ?>
         <a href="logout.php" class="text-danger text-center" style="text-decoration: none;">
             <i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i>
@@ -653,7 +668,7 @@ if (isset($responseData2['data']['hallDetails'])) {
         </a>
     <?php else: ?>
         <a href="#" class="text-danger text-center" style="text-decoration: none;">
-            <i class="bi bi-person-fill" style="font-size: 1.5rem;"></i>
+            <i class="bi bi-person-fill" style="font-size: 1.5rem;" data-bs-toggle="modal" data-bs-target="#loginModal"></i>
             <p class="mb-0" style="font-size: 0.75rem;">Profile</p>
         </a>
     <?php endif; ?>
@@ -726,7 +741,7 @@ if (isset($responseData2['data']['hallDetails'])) {
             </div>
         </div>
     </div>
-                </div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
