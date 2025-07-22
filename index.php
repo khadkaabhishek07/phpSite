@@ -159,7 +159,7 @@ session_start();
                     </div>
                     
                     <div class="col-lg-4 col-md-6">
-                        <a href= "https://bandobasta.com/venue">
+                        <a href= "./venue/">
                         <div class="single-service wow fadeInUp" data-wow-delay=".4s">
                             <div class="icon">
                                 <img src="./assets/img/service/service-icon-2.svg" alt="">
