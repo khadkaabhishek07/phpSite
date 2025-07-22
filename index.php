@@ -399,10 +399,10 @@ session_start();
                                     <a href="javascript:void(0)">Bandobasta Partners</a>
                                 </li>
                                 <li>
-                                    <a href="https://bandobasta.com/terms.html">Terms of Service</a>
+                                    <a href="https://bandobasta.com/terms">Terms of Service</a>
                                 </li>
                                 <li>
-                                    <a href="https://bandobasta.com/privacy.html">Privacy Policy</a>
+                                    <a href="https://bandobasta.com/privacy">Privacy Policy</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">Refund Policy</a>

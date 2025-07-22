@@ -1,4 +1,20 @@
+<?php
+include 'db.php';  // Database connection
 
+// Fetch package details along with pricing, inclusions, and media
+$query = $pdo->query("
+    SELECT p.id, p.name, p.description, p.image_url, 
+           pp.price, pp.currency, 
+           GROUP_CONCAT(DISTINCT pi.inclusion_description SEPARATOR ', ') AS inclusions, 
+           GROUP_CONCAT(DISTINCT pm.media_type, ': ', pm.details SEPARATOR ' | ') AS media_details
+    FROM packages p
+    LEFT JOIN package_pricing pp ON p.id = pp.package_id
+    LEFT JOIN package_inclusions pi ON p.id = pi.package_id
+    LEFT JOIN package_media pm ON p.id = pm.package_id
+    GROUP BY p.id
+");
+$packages = $query->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
