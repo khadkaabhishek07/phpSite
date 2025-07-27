@@ -153,11 +153,10 @@ if ($data && isset($data['code']) && $data['code'] === "200" && !empty($hallAvai
 } else {
     // Display fallback form if no data or error
 echo "
-<form style='padding: 140px;' method='POST' action='process_form.php'>
+<form style='padding: 140px;' method='POST' action='process_form_event.php'>
     <h1 class='text-center'>Venue Request Form</h1>
     <hr/>
     <div class='form-row'>
-       
         <div class='form-group col-md-6'>
         <label for='inputEventType'>Event Type</label>
         <input type='text' class='form-control' id='inputEventDate' value='".htmlspecialchars($eventType) ."' disabled>
@@ -204,6 +203,6 @@ echo "
     <button type='submit' class='btn btn-primary'>Submit Enquiry</button>
 </form>
 ";
-
+exit;
 }
 ?>
