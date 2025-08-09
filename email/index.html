@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Confirmation - Bandobasta Nepal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (max-width: 640px) {
+      .container {
+        width: 100% !important;
+        padding: 16px !important;
+      }
+      .text-lg {
+        font-size: 1.125rem !important;
+      }
+      .px-8 {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Main Container -->
+  <table class="min-w-full bg-gray-50" cellpadding="0" cellspacing="0" role="presentation">
+    <tr>
+      <td align="center" class="p-6 md:p-10">
+        <table class="container w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+          
+          <!-- Header -->
+          <tr>
+            <td class="bg-green-600 to-teal-500 px-8 py-6 text-center text-white">
+              <h1 class="text-3xl font-bold">Bandobasta </h1>
+            </td>
+          </tr>
+
+          <!-- Booking Confirmation -->
+          <tr>
+            <td class="px-8 py-8">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">Booking Request Placed Sucessfully🎉</h2>
+              <p class="text-gray-600 mb-6">
+                Hi <span class="font-medium">Saleem Thapa</span>,<br>
+                Thank you for choosing <strong>Bandobasta Nepal</strong>! We're excited for your event. Below are your booking details.
+              </p>
+
+              <!-- Booking Info Cards -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <p class="text-sm text-gray-500 uppercase tracking-wider">Booking ID</p>
+                  <p class="text-lg font-semibold text-gray-800">#125</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <p class="text-sm text-gray-500 uppercase tracking-wider">Date</p>
+                  <p class="text-lg font-semibold text-gray-800">July 29, 2025</p>
+                </div>
+              </div>
+
+              <div class="space-y-4 mb-6">
+                <div class="flex border-b border-gray-200 pb-3">
+                  <span class="w-1/3 font-medium text-gray-700">Venue:</span>
+                  <span class="w-2/3 text-gray-800">Ghantaghar</span>
+                </div>
+                <div class="flex border-b border-gray-200 pb-3">
+                  <span class="w-1/3 font-medium text-gray-700">Hall:</span>
+                  <span class="w-2/3 text-gray-800">New Hall</span>
+                </div>
+                <div class="flex border-b border-gray-200 pb-3">
+                  <span class="w-1/3 font-medium text-gray-700">Guests:</span>
+                  <span class="w-2/3 text-gray-800">100</span>
+                </div>
+              </div>
+
+              <!-- Additional Info -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-blue-800 text-sm uppercase tracking-wide">Important Notes</h3>
+                <ul class="text-blue-700 text-sm mt-2 space-y-1">
+                <li>• Bookings will be confirmed by the venue within 24 hours.</li>
+                <li>• Customers are responsible for making payments directly to the venue.</li>
+                <li>• Bandobasta is not liable for any disputes or issues that may arise.</li>
+                </ul>
+            </div>
+  
+
+              <!-- CTA Button -->
+              <div class="text-center my-6">
+                <a href="https://webbandobasta.onrender.com/venue/" 
+                   class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-md"
+                   style="text-decoration: none;">
+                  View Booking Details
+                </a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td class="bg-gray-100 px-8 py-6 text-center text-gray-600 text-sm border-t">
+              <p class="mb-2">
+                Need help? Contact us at <a href="mailto:support@bandobastanepal.com" class="text-green-600 hover:underline">support@bandobastanepal.com</a> or call +977-1-4222222
+              </p>
+              <p class="mb-2">
+                Follow us: 
+                <a href="#" class="text-green-600 mx-1 hover:underline">Instagram</a> | 
+                <a href="#" class="text-green-600 mx-1 hover:underline">Facebook</a> | 
+                <a href="#" class="text-green-600 mx-1 hover:underline">Website</a>
+              </p>
+              <p>&copy; 2025 Bandobasta Nepal. All rights reserved.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

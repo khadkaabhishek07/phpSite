@@ -191,7 +191,7 @@ if ($data && isset($data['data']['venues']) && !empty($data['data']['venues'])) 
                 <?php endif; ?>
                 <form action="login.php" method="POST">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">Username or Email or Phone Number</label>
                         <input type="text" id="username" name="username" class="form-control" required>
                     </div>
                     <div class="mb-3">

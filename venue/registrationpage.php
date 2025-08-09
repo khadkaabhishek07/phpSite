@@ -93,7 +93,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
             role: "ROLE_USER",
         };
 
-        fetch('https://bandobasta.onrender.com/bandobasta/api/v1/user/authenticate/register', {
+        fetch('https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1/user/authenticate/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
     document.getElementById("verifyPinButton").addEventListener("click", function () {
         const pin = document.getElementById("pinInput").value;
         if (pin.length === 6) {
-            fetch(`https://bandobasta.onrender.com/bandobasta/api/v1/user/validateOTP?otp=${pin}`, {
+            fetch(`https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1/user/validateOTP?otp=${pin}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

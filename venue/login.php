@@ -3,13 +3,13 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize input
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $identifier = trim($_POST['identifier'] ?? $_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
     $redirect = $_POST['redirect'] ?? 'index.php'; // Default to index if not set
 
     // Validate input
-    if (empty($username) || empty($password)) {
-        $_SESSION['error'] = 'Username and password are required.';
+    if (empty($identifier) || empty($password)) {
+        $_SESSION['error'] = 'Identifier and password are required.';
         header("Location: $redirect");
         exit();
     }
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => json_encode(array(
-            "username" => $username,
+            "identifier" => $identifier,
             "password" => $password
         )),
         CURLOPT_HTTPHEADER => array(
@@ -52,16 +52,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($responseData['code']) && $responseData['code'] === "200") {
         // Successful login
         $_SESSION['user_logged_in'] = true;
-        $_SESSION['username'] = htmlspecialchars($responseData['data']['username']); // Sanitize output
-        $_SESSION['token'] = htmlspecialchars($responseData['data']['accessToken']); // Store access token in session
-        $_SESSION['userId'] = htmlspecialchars($responseData['data']['id']);
+        $_SESSION['username'] = htmlspecialchars($responseData['data']['username'] ?? ''); // Sanitize output
+        $_SESSION['token'] = htmlspecialchars($responseData['data']['accessToken'] ?? ''); // Store access token in session
+        $_SESSION['userId'] = htmlspecialchars($responseData['data']['id'] ?? '');
 
         // Redirect back to the specified page with parameters
         header("Location: $redirect");
         exit();
     } else {
         // Authentication failed
-        $_SESSION['error'] = htmlspecialchars($responseData['message'] ?? 'Invalid username or password.');
+        $_SESSION['error'] = htmlspecialchars($responseData['message'] ?? 'Invalid credentials.');
         header("Location: $redirect");
         exit();
     }

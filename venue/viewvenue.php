@@ -729,7 +729,7 @@ if (isset($responseData2['data']['hallDetails'])) {
                 <form action="login.php" method="POST">
                     <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">Username or Email or Phone Number</label>
                         <input type="text" id="username" name="username" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -737,10 +737,214 @@ if (isset($responseData2['data']['hallDetails'])) {
                         <input type="password" id="password" name="password" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-danger w-100">Login</button>
+
+                    <div class="text-center mt-3">
+                        <a href="#" data-open-register>Create an account</a>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Create an account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger">
+                        <?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
+                    </div>
+                <?php endif; ?>
+                <form action="register.php" method="POST">
+                    <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="middleName" class="form-label">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" required>
+                    </div>
+                    <input type="hidden" name="role" value="ROLE_USER">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+
+                    <div class="text-center mt-3">
+                        <a href="#" data-open-login>Already have an account? Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="otpModalLabel">Verify your account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php if (isset($_SESSION['otp_error'])): ?>
+          <div class="alert alert-danger">
+            <?php echo htmlspecialchars($_SESSION['otp_error']); unset($_SESSION['otp_error']); ?>
+          </div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['info'])): ?>
+          <div class="alert alert-info">
+            <?php echo htmlspecialchars($_SESSION['info']); unset($_SESSION['info']); ?>
+          </div>
+        <?php endif; ?>
+
+        <form action="otpverification.php" method="POST">
+          <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
+          <div class="mb-3">
+            <label for="otp" class="form-label">Enter 6-digit OTP</label>
+            <input type="text" inputmode="numeric" pattern="\d{6}" maxlength="6" id="otp" name="otp" class="form-control" required placeholder="______">
+            <div class="form-text">Check your email/phone for the code.</div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Verify OTP</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.bootstrap || !bootstrap.Modal) return;
+
+  <?php if (isset($_SESSION['otp_required']) && $_SESSION['otp_required']): ?>
+    var otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+    otpModal.show();
+  <?php unset($_SESSION['otp_required']); endif; ?>
+
+  <?php if (isset($_SESSION['open_login_modal']) && $_SESSION['open_login_modal']): ?>
+    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    loginModal.show();
+  <?php unset($_SESSION['open_login_modal']); endif; ?>
+});
+</script>
+
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerModalLabel">Create your account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="register.php" method="POST">
+          <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
+
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" id="firstName" name="firstName" class="form-control" required autocomplete="given-name">
+            </div>
+            <div class="mb-3 col-md-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" id="lastName" name="lastName" class="form-control" required autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="middleName" class="form-label">Middle name</label>
+            <input type="text" id="middleName" name="middleName" class="form-control" autocomplete="additional-name">
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required autocomplete="email">
+          </div>
+
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone number</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required autocomplete="tel">
+          </div>
+
+          <div class="mb-3">
+            <label for="usernameReg" class="form-label">Username</label>
+            <input type="text" id="usernameReg" name="username" class="form-control" required autocomplete="username">
+          </div>
+
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <input type="text" id="role" name="role" class="form-control" required placeholder="e.g. user, admin">
+          </div>
+
+          <div class="mb-3">
+            <label for="passwordReg" class="form-label">Password</label>
+            <input type="password" id="passwordReg" name="password" class="form-control" required autocomplete="new-password">
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Create account</button>
+
+          <div class="text-center mt-3">
+            <a href="#" data-open-login>Already have an account? Log in</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="otpModalLabel">Verify your account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php if (isset($_SESSION['otp_error'])): ?>
+          <div class="alert alert-danger">
+            <?php echo htmlspecialchars($_SESSION['otp_error']); unset($_SESSION['otp_error']); ?>
+          </div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['info'])): ?>
+          <div class="alert alert-info">
+            <?php echo htmlspecialchars($_SESSION['info']); unset($_SESSION['info']); ?>
+          </div>
+        <?php endif; ?>
+
+        <form action="verifyOTP.php" method="POST">
+          <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
+          <div class="mb-3">
+            <label for="otp" class="form-label">Enter 6-digit OTP</label>
+            <input type="text" inputmode="numeric" pattern="\d{6}" maxlength="6" id="otp" name="otp" class="form-control" required placeholder="______">
+            <div class="form-text">Check your email/phone for the code.</div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Verify OTP</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -787,7 +991,7 @@ document.getElementById('viewPhotosBtn').addEventListener('click', function() {
 </script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
@@ -798,6 +1002,58 @@ document.getElementById('viewPhotosBtn').addEventListener('click', function() {
 
 <!-- Bootstrap JS Bundle (includes Popper.js) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var loginModalEl = document.getElementById('loginModal');
+  var registerModalEl = document.getElementById('registerModal');
+  var otpModalEl = document.getElementById('otpModal');
+
+  if (!window.bootstrap || !bootstrap.Modal) return;
+
+  // From Login -> Register
+  document.querySelectorAll('[data-open-register]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var loginModal = bootstrap.Modal.getInstance(loginModalEl) || new bootstrap.Modal(loginModalEl);
+      var registerModal = bootstrap.Modal.getInstance(registerModalEl) || new bootstrap.Modal(registerModalEl);
+
+      var handler = function () {
+        registerModal.show();
+        loginModalEl.removeEventListener('hidden.bs.modal', handler);
+      };
+      loginModalEl.addEventListener('hidden.bs.modal', handler);
+      loginModal.hide();
+    });
+  });
+
+  // From Register -> Login
+  document.querySelectorAll('[data-open-login]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var loginModal = bootstrap.Modal.getInstance(loginModalEl) || new bootstrap.Modal(loginModalEl);
+      var registerModal = bootstrap.Modal.getInstance(registerModalEl) || new bootstrap.Modal(registerModalEl);
+
+      var handler = function () {
+        loginModal.show();
+        registerModalEl.removeEventListener('hidden.bs.modal', handler);
+      };
+      registerModalEl.addEventListener('hidden.bs.modal', handler);
+      registerModal.hide();
+    });
+  });
+
+  <?php if (isset($_SESSION['otp_required']) && $_SESSION['otp_required']): ?>
+    var otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+    otpModal.show();
+  <?php unset($_SESSION['otp_required']); endif; ?>
+
+  <?php if (isset($_SESSION['open_login_modal']) && $_SESSION['open_login_modal']): ?>
+    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    loginModal.show();
+  <?php unset($_SESSION['open_login_modal']); endif; ?>
+});
+</script>
 
 </body>
 </html>
