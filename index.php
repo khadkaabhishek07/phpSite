@@ -359,14 +359,16 @@ session_start();
                                 <a href="index.html"><img src="./assets/img/logo/brand_logo.svg" alt="logo" style="height: 10    0px; width: 160px;"></a>
                             </div>
                             <div class="download-btns">
+                                <!-- Android Play Store Button -->
+                                <a href="https://play.google.com/store/apps/details?id=com.bandobasta.bandobasta" target="_blank">
+                                    <span class="icon"><i class="lni lni-play-store"></i></span>
+                                    <span class="text">Get it on <b>Play Store</b></span>
+                                </a>
                                 <a href="javascript:void(0)">
                                     <span class="icon"><i class="lni lni-apple"></i></span>
                                     <span class="text">Coming soon on the <b>App Store</b> </span>
                                 </a>
-                                <a href="javascript:void(0)">
-                                    <span class="icon"><i class="lni lni-play-store"></i></span>
-                                    <span class="text">Coming soon ON <b>Play Store</b> </span>
-                                </a>
+                                
                             </div>
                         </div>
                     </div>
