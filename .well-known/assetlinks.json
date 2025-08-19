@@ -1,0 +1,15 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls",
+        "delegate_permission/common.get_login_creds"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.bandobasta.bandobasta",
+        "sha256_cert_fingerprints": [
+          "40:E3:89:CB:03:85:D0:D9:16:4D:F1:AD:99:04:52:F3:63:01:26:9D:D1:9C:67:F0:D0:0D:B8:2D:F3:45:B3:48"
+        ]
+      }
+    }
+  ]
